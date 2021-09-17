@@ -4,8 +4,17 @@ from test_framework import generic_test
 
 
 def plus_one(A: List[int]) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    A[-1] += 1
+    i = len(A) - 1
+    while i >= 1:
+        if A[i] == 10:
+            A[i] = 0
+            A[i - 1] += 1
+        i-=1
+    if A[0] == 10:
+        A[0] = 1
+        A.append(0)
+    return A
 
 
 if __name__ == '__main__':
