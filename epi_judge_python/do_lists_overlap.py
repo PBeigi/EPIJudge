@@ -8,8 +8,42 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def overlapping_lists(l0: ListNode, l1: ListNode) -> Optional[ListNode]:
-    # TODO - you fill in here.
-    return None
+    def has_cycle(h):
+        slow = fast = h
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow is fast:
+                slow = h
+                while slow is not fast:
+                    slow = slow.next
+                    fast = fast.next
+                return slow
+        return None
+
+    def overlap_no_cycles(h1,h2):
+        while h1 and h1.next:
+            h1=h1.next
+        while h2 and h2.next:
+            h2=h2.next
+        if h1 is h2:
+            return h1
+        return None
+
+    l0_root = has_cycle(l0)
+    l1_root = has_cycle(l1)
+    if not l0_root and not l1_root:
+        return overlap_no_cycles(l0, l1)
+    if (not l0_root and l1_root) or (l0_root and not l1_root):
+        return None
+    else:
+        tmp = l0_root
+        while tmp:
+            tmp=tmp.next
+            if tmp is l0_root or tmp is l1_root:
+                break
+        return tmp if tmp is l1_root else None
+
 
 
 @enable_executor_hook
