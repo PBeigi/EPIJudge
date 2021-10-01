@@ -10,12 +10,12 @@ def multiply(num1: List[int], num2: List[int]) -> List[int]:
     res = [0] * (len(num1) + len(num2))
     for i in reversed(range(len(num1))):
         for j in reversed(range(len(num2))):
-            res[i+j+1] += num1[i] * num2[j]
-            res[i+j] += res[i+j+1] // 10
-            res[i+j+1] = res[i+j+1]%10
-    non_zero_idx = next((i for i,v in enumerate(res) if v!=0), len(res))
-    res = res[non_zero_idx:] or [0]
-    res[0] *= sign
+            res[i+j+1]+= num1[i]*num2[j]
+            res[i+j]+= res[i+j+1] // 10
+            res[i+j+1] = res[i+j+1] % 10
+    first_none_zero = next((i for i,d in enumerate(res) if d!=0), len(res))
+    res = res[first_none_zero:] or [0]
+    res[0]*=sign
     return res
 
 
