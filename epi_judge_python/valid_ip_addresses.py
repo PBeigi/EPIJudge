@@ -26,7 +26,7 @@ def dfs(s, cur_idx, part_count, path, res):
 
 def get_valid_ip_address(s: str) -> List[str]:
     results = []
-    dfs2(s,0,"", results)
+    dfs(s,0,0,"", results)
     return results
 
 
