@@ -6,18 +6,31 @@ from test_framework import generic_test
 
 def merge_two_sorted_lists(L1: Optional[ListNode],
                            L2: Optional[ListNode]) -> Optional[ListNode]:
-    dummy_head = ListNode()
-    tail = dummy_head
+    res = ListNode()
+    p = res
     while L1 and L2:
-        if L1.data <= L2.data:
-            tail.next = L1
-            L1=L1.next
+        if L1.data < L2.data:
+            p.next = L1
+            p = p.next
+            L1 = L1.next
+        elif L2.data < L1.data:
+            p.next = L2
+            p = p.next
+            L2 = L2.next
         else:
-            tail.next = L2
-            L2=L2.next
-        tail = tail.next
-    tail.next = L1 or L2
-    return dummy_head.next
+            p.next = L1
+            p = p.next
+            L1 = L1.next
+            p.next = L2
+            p = p.next
+            L2 = L2.next
+    if L1:
+        p.next = L1
+    if L2:
+        p.next = L2
+    return res.next
+
+
 
 
 if __name__ == '__main__':

@@ -1,6 +1,5 @@
 import functools
 from typing import Optional
-
 from list_node import ListNode
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
@@ -8,15 +7,16 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def has_cycle(head: ListNode) -> Optional[ListNode]:
-    slow = fast = head
+    slow = head
+    fast = head
     while fast and fast.next:
-        fast = fast.next.next
         slow = slow.next
-        if slow == fast:
-            fast = head
+        fast = fast.next.next
+        if slow is fast:
+            slow = head
             while slow is not fast:
-                fast=fast.next
-                slow=slow.next
+                fast = fast.next
+                slow = slow.next
             return slow
     return None
 
