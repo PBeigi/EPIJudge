@@ -5,9 +5,10 @@ from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
 
+
 def rotate_array(rotate_amount: int, A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+
+
 
 
 @enable_executor_hook
