@@ -5,26 +5,27 @@ from test_framework.test_failure import TestFailure
 class Stack:
     def __init__(self):
         self.st = []
-        self.max_st = []
-        self.max_st.append(float('-inf'))
 
     def empty(self) -> bool:
         return len(self.st) == 0
 
+
     def max(self) -> int:
-        return self.max_st[-1]
+        if len(self.st):
+            return self.st[-1][1]
 
     def pop(self) -> int:
         if len(self.st):
-            if self.st[-1] == self.max_st[-1]:
-                self.max_st.pop()
-            return self.st.pop()
+            return self.st.pop()[0]
 
     def push(self, x: int) -> None:
-        cur_max = self.max_st[-1]
-        if cur_max <= x:
-            self.max_st.append(x)
-        self.st.append(x)
+        if len(self.st):
+            cur_max = self.st[-1][1]
+            maximum = max(cur_max, x)
+            self.st.append((x, maximum))
+        else:
+            self.st.append((x, x))
+
 
 
 def stack_tester(ops):

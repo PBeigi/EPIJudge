@@ -3,13 +3,18 @@ from test_framework.test_failure import TestFailure
 
 
 class Queue:
+    SCALE_FACTOR = 2
     def __init__(self, capacity: int) -> None:
-        # TODO - you fill in here.
-        return
+        self.entries = [0] * capacity
+        self.head = self.tail = self.entry_count = 0
 
     def enqueue(self, x: int) -> None:
-        # TODO - you fill in here.
-        return
+        if self.entry_count == len(self.entries): # resize
+            self.entries = self.entries[self.head:] + self.entries[:self.head] + [0]*(self.self.entry_count*self.SCALE_FACTOR - self.entry_count)
+            self.head = 0
+            self.tail = self.entry_count
+        self.entries[self.tail] = x
+
 
     def dequeue(self) -> int:
         # TODO - you fill in here.

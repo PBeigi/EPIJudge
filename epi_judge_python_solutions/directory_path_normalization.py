@@ -2,10 +2,6 @@ from test_framework import generic_test
 
 
 def shortest_equivalent_path(path: str) -> str:
-
-    if not path:
-        raise ValueError('Empty string is not a valid path.')
-
     path_names = []  # Uses list as a stack.
     # Special case: starts with '/', which is an absolute path.
     if path[0] == '/':
@@ -17,8 +13,6 @@ def shortest_equivalent_path(path: str) -> str:
             if not path_names or path_names[-1] == '..':
                 path_names.append(token)
             else:
-                if path_names[-1] == '/':
-                    raise ValueError('Path error')
                 path_names.pop()
         else:  # Must be a name.
             path_names.append(token)
