@@ -994,7 +994,7 @@ problem_mapping = {
                 "total": 201
             },
             "Python: queue_with_max.py": {
-                "passed": 0,
+                "passed": 201,
                 "total": 201
             }
         }
