@@ -11,12 +11,8 @@ class QueueWithMax:
     def enqueue(self, x: int) -> None:
         if self.max_q:
             if self.max_q[-1] < x:
-                pop_size = 0
                 while self.max_q and self.max_q[-1] < x:
                     self.max_q.pop()
-                    pop_size+=1
-                for _ in range(pop_size):
-                    self.max_q.append(x)
                 self.max_q.append(x)
             else:
                 self.max_q.append(x)
@@ -29,7 +25,8 @@ class QueueWithMax:
 
     def dequeue(self) -> int:
         res = self.q.popleft()
-        self.max_q.popleft()
+        if self.max_q and self.max_q[0] == res:
+            self.max_q.popleft()
         return res
 
     def max(self) -> int:

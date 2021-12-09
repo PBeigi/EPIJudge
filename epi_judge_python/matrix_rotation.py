@@ -2,30 +2,23 @@ from typing import List
 
 from test_framework import generic_test
 
-def rotate_90(point, l):
-    i = point[0]
-    j = point[1]
-    return j, l- i - 1
 
 def rotate_matrix(square_matrix: List[List[int]]) -> None:
-    layers = (len(square_matrix) + 1) // 2
-    n = len(square_matrix)
+    layers = len(square_matrix) // 2
     for layer in range(layers):
-        first = layer
-        last = n - 1 - layer
-        for i in range(first, last):
-            offset = i - first
-            top = square_matrix[first][i]
-            # left to up
-            square_matrix[first][i] = square_matrix[last-offset][first]
+        start = layer
+        end = len(square_matrix) - layer - 1
+        for i in range(start, end):
+            offset = i - start
+            top = square_matrix[layer][i]
+            # left to top
+            square_matrix[layer][i] = square_matrix[end-offset][layer]
             # bottom to left
-            square_matrix[last-offset][first] = square_matrix[last][last-offset]
+            square_matrix[end-offset][layer] = square_matrix[end][end-offset]
             # right to bottom
-            square_matrix[last][last-offset] = square_matrix[i][last]
-
-            # top to up
-            square_matrix[i][last] = top
-
+            square_matrix[end][end - offset] = square_matrix[i][end]
+            # top to right
+            square_matrix[i][end] = top
 
 def rotate_matrix_wrapper(square_matrix):
     rotate_matrix(square_matrix)
