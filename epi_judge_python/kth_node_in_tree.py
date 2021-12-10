@@ -13,11 +13,25 @@ class BinaryTreeNode:
         self.right = right
         self.size = size
 
+def helper(node, k):
+    if node.left:
+                remaining = k - node.left.size
+                if remaining == 1:
+                    return node
+                elif remaining < 1:
+                    return helper(node.left, k)
+                elif node.right:
+                    return helper(node.right, remaining - 1)
+    if k == 1:
+        return node
+    if node.right:
+        return helper(node.right, k - 1)
+
+
 
 def find_kth_node_binary_tree(tree: BinaryTreeNode,
                               k: int) -> Optional[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return None
+    return helper(tree, k)
 
 
 @enable_executor_hook

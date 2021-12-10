@@ -5,8 +5,17 @@ from test_framework import generic_test
 
 
 def inorder_traversal(tree: BinaryTreeNode) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    cur = tree
+    st = []
+    res = []
+    while cur or st:
+        while cur:
+            st.append(cur)
+            cur = cur.left
+        cur = st.pop()
+        res.append(cur.data)
+        cur = cur.right
+    return res
 
 
 if __name__ == '__main__':
