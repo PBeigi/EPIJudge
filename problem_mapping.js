@@ -1038,7 +1038,7 @@ problem_mapping = {
                 "total": 948
             },
             "Python: lowest_common_ancestor.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1052,7 +1052,7 @@ problem_mapping = {
                 "total": 948
             },
             "Python: lowest_common_ancestor_with_parent.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1066,7 +1066,7 @@ problem_mapping = {
                 "total": 3849
             },
             "Python: sum_root_to_leaf.py": {
-                "passed": 0,
+                "passed": 3849,
                 "total": 3849
             }
         },
