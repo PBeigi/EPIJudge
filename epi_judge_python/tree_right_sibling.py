@@ -2,6 +2,7 @@ import functools
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
+import collections
 
 
 class BinaryTreeNode:
@@ -13,8 +14,24 @@ class BinaryTreeNode:
 
 
 def construct_right_sibling(tree: BinaryTreeNode) -> None:
-    # TODO - you fill in here.
-    return
+    if not tree:
+        return
+    q = collections.deque()
+    q.append(tree)
+
+    while q:
+        cur_size = len(q)
+        for i, _ in enumerate(range(cur_size)):
+            node = q.popleft()
+            if i == cur_size - 1:
+                node.next = None
+            else:
+                node.next = q[0]
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+
 
 
 def traverse_next(node):

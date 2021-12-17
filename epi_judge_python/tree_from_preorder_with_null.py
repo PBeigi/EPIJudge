@@ -8,21 +8,18 @@ import collections
 
 Status = collections.namedtuple('Status', ('node', 'next_index'))
 
-def helper(preorder, index):
-    cur = preorder[index]
-    if cur is None:
-        return Status(node=None, next_index=index+1)
-    cur_node = BinaryTreeNode(cur)
-    status = helper(preorder, index+1)
-    cur_node.left = status.node
-    status = helper(preorder, status.next_index)
-    cur_node.right = status.node
-    return Status(node=cur_node, next_index=status.next_index)
+def helper(preorder):
+    cur = next(preorder)
+    if not cur:
+        return cur
+    cur = BinaryTreeNode(cur)
+    cur.left = helper(preorder)
+    cur.right = helper(preorder)
+    return cur
 
 
 def reconstruct_preorder(preorder: List[int]) -> BinaryTreeNode:
-    status = helper(preorder, 0)
-    return status.node
+    return helper(iter(preorder))
 
 
 @enable_executor_hook

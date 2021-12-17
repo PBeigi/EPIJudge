@@ -1178,7 +1178,7 @@ problem_mapping = {
                 "total": 3852
             },
             "Python: tree_connect_leaves.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },
@@ -1192,7 +1192,7 @@ problem_mapping = {
                 "total": 3852
             },
             "Python: tree_exterior.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },
@@ -1206,7 +1206,7 @@ problem_mapping = {
                 "total": 10
             },
             "Python: tree_right_sibling.py": {
-                "passed": 0,
+                "passed": 10,
                 "total": 10
             }
         }
