@@ -14,24 +14,15 @@ class BinaryTreeNode:
 
 
 def construct_right_sibling(tree: BinaryTreeNode) -> None:
-    if not tree:
-        return
-    q = collections.deque()
-    q.append(tree)
+    def compute_sibling(root):
+        while root and root.left:
+            root.left.next = root.right
+            root.right.next = root.next and root.next.left
+            root = root.next
 
-    while q:
-        cur_size = len(q)
-        for i, _ in enumerate(range(cur_size)):
-            node = q.popleft()
-            if i == cur_size - 1:
-                node.next = None
-            else:
-                node.next = q[0]
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
-
+    while tree and tree.left:
+        compute_sibling(tree)
+        tree = tree.left
 
 
 def traverse_next(node):
