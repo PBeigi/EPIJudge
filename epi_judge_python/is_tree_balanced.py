@@ -3,23 +3,24 @@ from test_framework import generic_test
 import collections
 
 def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
-    HeightWithBalancedStatus = collections.namedtuple('HeightWithBalancedStatus', ('height', 'balanced'))
+    Status = collections.namedtuple('Status', ('balanced', 'height'))
 
-    def helper(root):
+    def is_balanced(root):
         if not root:
-            return HeightWithBalancedStatus(-1, True)
-        left = helper(root.left)
-        if not left.balanced:
-            return HeightWithBalancedStatus(-1, False)
-        right = helper(root.right)
-        if not right.balanced:
-            return HeightWithBalancedStatus(-1, False)
-        if abs(left.height - right.height) > 1:
-            return HeightWithBalancedStatus(-1, False)
-        return HeightWithBalancedStatus(1+max(right.height, left.height), True)
+            status = Status(True, 0)
+            return status
+        left_status = is_balanced(root.left)
+        right_status = is_balanced(root.right)
+        if not left_status.balanced or not right_status.balanced:
+            return Status(False, 1 + max(left_status.height, right_status.height))
+        else:
+            balanced = True if abs(left_status.height - right_status.height) <= 1 else False
+            return Status(balanced, 1 + max(left_status.height, right_status.height))
+
+    status = is_balanced(tree)
+    return status.balanced
 
 
-    return helper(tree).balanced
 
 
 if __name__ == '__main__':

@@ -6,13 +6,23 @@ import heapq
 
 def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
     h = []
-    for file in sorted_arrays:
-        for time in file:
-            heapq.heappush(h, time)
+    arrays_iter = [iter(array) for array in sorted_arrays]
+    for i, arr in enumerate(arrays_iter):
+        el = next(arr, None)
+        if el is not None:
+            heapq.heappush(h, (el, i))
     res = []
     while h:
-        res.append(heapq.heappop(h))
+        el, arr_index = heapq.heappop(h)
+        arr_it = arrays_iter[arr_index]
+        res.append(el)
+        next_el = next(arr_it, None)
+        if next_el is not None:
+            heapq.heappush(h, (next_el,arr_index))
     return res
+
+
+
 
 
 
