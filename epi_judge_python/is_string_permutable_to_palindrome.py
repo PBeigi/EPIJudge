@@ -1,9 +1,20 @@
 from test_framework import generic_test
-
+import collections
 
 def can_form_palindrome(s: str) -> bool:
-    # TODO - you fill in here.
-    return True
+    m = collections.defaultdict(int)
+    odd_count = 0
+    for c in s:
+        if m[c] % 2 == 1:
+            odd_count -=1
+        else:
+            odd_count +=1
+        m[c]+=1
+    if odd_count <=1:
+        return True
+    return False
+
+
 
 
 if __name__ == '__main__':
