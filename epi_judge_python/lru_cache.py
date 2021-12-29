@@ -1,67 +1,32 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
-
-
-class Node:
-    def __init__(self, key=None, value=None):
-        self.key = key
-        self.value = value
-        self.next = None
-        self.prev = None
-
+import collections
 
 class LruCache:
     def __init__(self, capacity: int) -> None:
-        self.head = Node()
-        self.tail = Node()
-        self.head.next = self.tail
-        self.tail.prev = self.head
-        self.m = dict()
         self.capacity = capacity
+        self.cache = collections.OrderedDict()
 
     def lookup(self, isbn: int) -> int:
-        if isbn not in self.m:
+        if isbn not in self.cache:
             return -1
-        n = self.m[isbn]
-        self.remove(n)
-        self.add(n)
-        return n.value
-
+        self.cache.move_to_end(isbn)
+        return self.cache[isbn]
 
     def insert(self, isbn: int, price: int) -> None:
-        if isbn in self.m:
-            n = self.m[isbn]
-            self.remove(n)
-            self.add(n)
+        if isbn in self.cache:
+            self.cache.move_to_end(isbn)
         else:
-            if self.capacity == len(self.m):
-                n = self.head.next
-                self.remove(n)
-                self.m.pop(n.key)
-            n = Node(key=isbn, value=price)
-            self.add(n)
-            self.m[isbn] = n
+            if len(self.cache) == self.capacity:
+                self.cache.popitem(last=False)
+            self.cache[isbn] = price
+
 
     def erase(self, isbn: int) -> bool:
-        if isbn not in self.m:
+        if isbn not in self.cache:
             return False
-        n = self.m[isbn]
-        self.remove(n)
-        self.m.pop(isbn)
+        self.cache.pop(isbn)
         return True
-
-    def remove(self, node):
-        p = node.prev
-        n = node.next
-        p.next = n
-        n.prev = p
-
-    def add(self, node):
-        p = self.tail.prev
-        p.next = node
-        node.prev = p
-        node.next = self.tail
-        self.tail.prev = node
 
 
 def lru_cache_tester(commands):
