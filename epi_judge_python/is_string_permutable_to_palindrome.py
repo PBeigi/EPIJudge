@@ -2,17 +2,10 @@ from test_framework import generic_test
 import collections
 
 def can_form_palindrome(s: str) -> bool:
-    m = collections.defaultdict(int)
-    odd_count = 0
-    for c in s:
-        if m[c] % 2 == 1:
-            odd_count -=1
-        else:
-            odd_count +=1
-        m[c]+=1
-    if odd_count <=1:
-        return True
-    return False
+    counter = collections.Counter(s)
+    r = sum(v%2 for v in counter.values())
+    return r <=1
+
 
 
 
