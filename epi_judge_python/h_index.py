@@ -4,8 +4,27 @@ from test_framework import generic_test
 
 
 def h_index(citations: List[int]) -> int:
-    # TODO - you fill in here.
-    return 0
+    # citations.sort()
+    # h_index = float('-inf')
+    # i = len(citations) - 1
+    # count = 0
+    # while i >=0:
+    #     count +=1
+    #     if citations[i] >= count:
+    #         h_index = max(h_index, count)
+    #     i-=1
+    # return h_index if h_index != float('-inf') else 0
+    citations.sort()
+    count = len(citations)
+    for num in citations:
+        if num < count:
+            count-=1
+    return count
+
+
+
+
+
 
 
 if __name__ == '__main__':

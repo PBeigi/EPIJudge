@@ -2,6 +2,7 @@ import collections
 import functools
 from typing import List
 
+from epi_judge_python_solutions.test_framework.test_failure import TestFailure
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
@@ -11,8 +12,26 @@ Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 def find_smallest_sequentially_covering_subset(paragraph: List[str],
                                                keywords: List[str]
                                                ) -> Subarray:
-    # TODO - you fill in here.
-    return Subarray(0, 0)
+    keyword_to_idx = {k:i for i, k in enumerate(keywords)}
+
+    latest_occurance = [-1] * len(keywords)
+    shortest_subarray_len = [float('inf')] * len(keywords)
+    res = Subarray(start=-1, end=-1)
+    shortest = float('inf')
+
+    for i, p in enumerate(paragraph):
+        if p in keyword_to_idx:
+            keyword_idx = keyword_to_idx[p]
+            if keyword_idx == 0:
+                shortest_subarray_len[keyword_idx] = 1
+            elif shortest_subarray_len[keyword_idx-1] != float('inf'):
+                distance_to_previous = i - latest_occurance[keyword_idx-1]
+                shortest_subarray_len[keyword_idx] = distance_to_previous + shortest_subarray_len[keyword_idx-1]
+            latest_occurance[keyword_idx] = i
+            if keyword_idx == len(keywords) - 1 and shortest_subarray_len[-1] < shortest:
+                shortest = shortest_subarray_len[-1]
+                res = Subarray(i - shortest + 1, i)
+    return res
 
 
 @enable_executor_hook

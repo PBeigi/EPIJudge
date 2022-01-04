@@ -10,8 +10,20 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return None
+    iter0, iter1 = node0, node1
+    s = set()
+
+    while iter0 or iter1:
+        if iter0:
+            if iter0 in s:
+                return iter0
+            s.add(iter0)
+            iter0 = iter0.parent
+        if iter1:
+            if iter1 in s:
+                return iter1
+            s.add(iter1)
+            iter1 = iter1.parent
 
 
 @enable_executor_hook
