@@ -9,6 +9,9 @@ class Name:
     def __init__(self, first_name: str, last_name: str) -> None:
         self.first_name, self.last_name = first_name, last_name
 
+    def __eq__(self, other):
+        return self.first_name == other.first_name
+
     def __lt__(self, other) -> bool:
         return (self.first_name < other.first_name
                 if self.first_name != other.first_name else
@@ -17,15 +20,14 @@ class Name:
 
 def eliminate_duplicate(A: List[Name]) -> None:
     A.sort()
-    write_index = 0
-    i = 0
-    while i < len(A):
-        A[write_index] = A[i]
-        write_index+=1
-        while i + 1 < len(A) and A[i+1].first_name == A[i].first_name:
-            i+=1
-        i+=1
+    write_index = 1
+    for cand in A[1:]:
+        if cand!= A[write_index-1]:
+            A[write_index] = cand
+            write_index+=1
     del A[write_index:]
+
+
 
 @enable_executor_hook
 def eliminate_duplicate_wrapper(executor, names):
