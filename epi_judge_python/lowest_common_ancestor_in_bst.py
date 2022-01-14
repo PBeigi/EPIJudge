@@ -7,11 +7,24 @@ from test_framework.binary_tree_utils import must_find_node
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+def helper(tree, s, b):
+    if not tree:
+        return tree
+    if tree is s or tree is b:
+        return tree
+    if s.data < tree.data < b.data:
+        return tree
+    if b.data < tree.data < s.data:
+        return tree
+    if b.data < tree.data and s.data < tree.data:
+        return helper(tree.left, s, b)
+    else:
+        return helper(tree.right, s, b)
+
 
 # Input nodes are nonempty and the key at s is less than or equal to that at b.
 def find_lca(tree: BstNode, s: BstNode, b: BstNode) -> Optional[BstNode]:
-    # TODO - you fill in here.
-    return None
+    return helper(tree,s , b)
 
 
 @enable_executor_hook
