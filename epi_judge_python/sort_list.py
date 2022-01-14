@@ -4,28 +4,36 @@ from typing import Optional
 from list_node import ListNode
 from test_framework import generic_test
 
-
-def stable_sort_list(L: ListNode) -> Optional[ListNode]:
-    l_by_val = collections.defaultdict(list)
-    it = L
-    while it:
-        l_by_val[it.data].append(it)
-        it = it.next
+def merge_sorted_list(a, b):
     dummy_head = ListNode()
     tail = dummy_head
-    sorted_keys = sorted(l_by_val)
-    i = 0
-    while l_by_val:
-        data = sorted_keys[i]
-        i+=1
-        values = l_by_val[data]
-        for value in values:
-            tail.next = value
-            tail = tail.next
-        del l_by_val[data]
-        if len(l_by_val) == 0:
-            tail.next = None
+    while a and b:
+        if a.data <= b.data:
+            tail.next = a
+            a = a.next
+        else:
+            tail.next = b
+            b = b.next
+        tail = tail.next
+    if a:
+        tail.next = a
+    if b:
+        tail.next = b
     return dummy_head.next
+
+
+def stable_sort_list(L: ListNode) -> Optional[ListNode]:
+    if not L or not L.next:
+        return L
+    slow = L
+    fast = L
+    pre = slow
+    while fast and fast.next:
+        pre = slow
+        fast = fast.next.next
+        slow = slow.next
+    pre.next = None
+    return merge_sorted_list(stable_sort_list(L), stable_sort_list(slow))
 
 
 

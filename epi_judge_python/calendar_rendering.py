@@ -1,7 +1,6 @@
 import collections
 import functools
 from typing import List
-
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 import heapq
@@ -29,7 +28,7 @@ def find_max_simultaneous_events(A: List[Event]) -> int:
     #     else:
     #         # a new room is allocated
     #         heapq.heappush(heap, i.finish)
-    # return len(heap)
+
     times = []
     EndPoint = collections.namedtuple('EndPoint', ('time', 'is_start'))
     times = [p for a in A for p in (EndPoint(time=a.start, is_start=True), EndPoint(time=a.finish, is_start=False))]
